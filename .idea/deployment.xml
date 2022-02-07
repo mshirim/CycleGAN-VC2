@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="shirimo@127.0.0.1:12345 password" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="shiri_SFTP">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_279" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="shirimo@127.0.0.1:12345 password">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_279" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="shirimo@127.0.0.1:12345 password (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_154" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="shirimo@127.0.0.1:12345 password (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_279" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="shirimo@mcluster11.wisdom.weizmann.ac.il:22">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_388" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="shirimo@mcluster11.wisdom.weizmann.ac.il:22 (1)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/tmp/pycharm_project_198" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

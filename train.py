@@ -1,8 +1,3 @@
-#! python
-# -*- coding: utf-8 -*-
-# Author: kun
-# @Time: 2019-07-23 14:25
-
 import os
 import numpy as np
 import argparse
@@ -10,13 +5,14 @@ import torch
 import time
 import librosa
 import pickle
+import soundfile as sf
 
 import preprocess
 from trainingDataset import trainingDataset
 from model_tf import Generator, Discriminator
 from tqdm import tqdm
 
-os.environ["CUDA_VISIBLE_DEVICES"] = "3"
+#os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
 
 class CycleGANTraining(object):
@@ -32,7 +28,7 @@ class CycleGANTraining(object):
                  output_B_dir,
                  restart_training_at=None):
         self.start_epoch = 0
-        self.num_epochs = 200000  # 5000
+        self.num_epochs = 2500  # 5000
         self.mini_batch_size = 1  # 1
         self.dataset_A = self.loadPickleFile(coded_sps_A_norm)
         self.dataset_B = self.loadPickleFile(coded_sps_B_norm)
@@ -291,7 +287,7 @@ class CycleGANTraining(object):
                 store_to_file = "Saving model Checkpoint  ......"
                 self.store_to_file(store_to_file)
                 self.saveModelCheckPoint(epoch, '{}'.format(
-                    self.modelCheckpoint + '_CycleGAN_CheckPoint'))
+                    self.modelCheckpoint + '_CycleGAN_CheckPoint_inter_speech'))
                 print("Model Saved!")
 
             if epoch % 2000 == 0 and epoch != 0:
@@ -355,9 +351,9 @@ class CycleGANTraining(object):
                                                                 ap=ap,
                                                                 fs=sampling_rate,
                                                                 frame_period=frame_period)
-            librosa.output.write_wav(path=os.path.join(output_A_dir, os.path.basename(file)),
-                                     y=wav_transformed,
-                                     sr=sampling_rate)
+            sf.write(file=os.path.join(output_A_dir, os.path.basename(file)),
+                                     data=wav_transformed,
+                                     samplerate=sampling_rate)
 
     def validation_for_B_dir(self):
         num_mcep = 36
@@ -408,9 +404,10 @@ class CycleGANTraining(object):
                                                                 ap=ap,
                                                                 fs=sampling_rate,
                                                                 frame_period=frame_period)
-            librosa.output.write_wav(path=os.path.join(output_B_dir, os.path.basename(file)),
-                                     y=wav_transformed,
-                                     sr=sampling_rate)
+            sf.write(file=os.path.join(output_B_dir, os.path.basename(file)),
+                     data=wav_transformed,
+                     samplerate=sampling_rate)
+
 
     def savePickle(self, variable, fileName):
         with open(fileName, 'wb') as f:
@@ -462,19 +459,22 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description="Train CycleGAN using source dataset and target dataset")
 
-    logf0s_normalization_default = './cache/logf0s_normalization.npz'
-    mcep_normalization_default = './cache/mcep_normalization.npz'
-    coded_sps_A_norm = './cache/coded_sps_A_norm.pickle'
-    coded_sps_B_norm = './cache/coded_sps_B_norm.pickle'
-    model_checkpoint = './model_checkpoint/'
-    resume_training_at = './model_checkpoint/_CycleGAN_CheckPoint'
-    #     resume_training_at = None
+    place = '/tmp/pycharm_project_279'
+    logf0s_normalization_default = place + '/cache/logf0s_normalization.npz'
+    mcep_normalization_default = place + '/cache/mcep_normalization.npz'
+    coded_sps_A_norm = place + '/cache/coded_sps_A_norm.pickle'
+    coded_sps_B_norm = place + '/cache/coded_sps_B_norm.pickle'
+    #model_checkpoint = place + '/model_checkpoint/'
+    model_checkpoint = '/net/mraid11/export/data/shirimo/'
+    #resume_training_at = place + '/model_checkpoint/_CycleGAN_CheckPoint'
+    resume_training_at = None
 
-    validation_A_dir_default = './data/S0913/'
-    output_A_dir_default = './converted_sound/S0913'
+    validation_A_dir_default = place + '/data/interview/'
+    output_A_dir_default = place + '/converted_sound/interview'
 
-    validation_B_dir_default = './data/gaoxiaosong/'
-    output_B_dir_default = './converted_sound/gaoxiaosong/'
+    validation_B_dir_default = place + '/data/speech/'
+    output_B_dir_default = place + '/converted_sound/speech/'
+
 
     parser.add_argument('--logf0s_normalization', type=str,
                         help="Cached location for log f0s normalized", default=logf0s_normalization_default)

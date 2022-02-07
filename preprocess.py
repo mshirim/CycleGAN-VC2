@@ -36,13 +36,13 @@ def world_decompose(wav, fs, frame_period=5.0):
     ap = pyworld.d4c(wav, f0, timeaxis, fs)
 
     # Use this in Ipython to see plot
-    # librosa.display.specshow(np.log(sp).T,
+    #librosa.display.specshow(np.log(sp).T,
     #                          sr=fs,
     #                          hop_length=int(0.001 * fs * frame_period),
     #                          x_axis="time",
     #                          y_axis="linear",
     #                          cmap="magma")
-    # colorbar()
+    #colorbar()
     return f0, timeaxis, sp, ap
 
 
